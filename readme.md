@@ -1,6 +1,8 @@
 
 # DataCOPE
-Code for Data-Centric Off-Policy Evaluation Without an Environment
+Code for DMLR Paper:
+
+### When is Off-Policy Evaluation (Reward Modeling) Useful in Contextual Bandits? A Data-Centric Perspective
 
 
 

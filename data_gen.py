@@ -108,12 +108,10 @@ if __name__ == '__main__':
             elif args.dataset == 'Digits':
                 thres = np.quantile(X[:, 52], args.behavior_bias_quantile)
                 pi_b_training_idx = X[:, 52] < thres
-            # only use 50% of those data:
             pi_b_training_idx = pi_b_training_idx & (np.random.binomial(1, 0.5, size=pi_b_training_idx.shape) == 1)
             X_pi_b = X[pi_b_training_idx]
             Y_pi_b = Noisy_Y[pi_b_training_idx]
         else:
-            # ablation study, randomly select in addition
             if args.dataset == 'Breast_cancer':
                 thres = np.quantile(X[:, 27], 0.5)
                 pi_b_training_idx = X[:, 27] < thres
@@ -129,9 +127,8 @@ if __name__ == '__main__':
             elif args.dataset == 'Digits':
                 thres = np.quantile(X[:, 52], 0.5)
                 pi_b_training_idx = X[:, 52] < thres
-            # only quantile to select data:
+
             pi_b_training_idx = pi_b_training_idx & (np.random.binomial(1, args.behavior_bias_quantile, size=pi_b_training_idx.shape) == 1)
-            #pi_b_training_idx = np.random.choice(ndata, int(ndata * args.behavior_bias_quantile), replace=False)
             X_pi_b = X[pi_b_training_idx]
             Y_pi_b = Noisy_Y[pi_b_training_idx]
     else:
@@ -159,8 +156,7 @@ if __name__ == '__main__':
 
         pi_e = MLPClassifier(max_iter=2000)
         pi_e.fit(X[:int(ndata * args.train_proportion)], Noisy_Y[:int(ndata * args.train_proportion)])
-        #calibrator = CalibratedClassifierCV(pi_e, cv='prefit')
-        #pi_e = calibrator.fit(X[:int(ndata * args.train_proportion)], Noisy_Y[:int(ndata * args.train_proportion)])
+
     pi_b_train_eval = pi_b.score(X[:int(ndata * args.train_proportion)], Y[:int(ndata * args.train_proportion)])
     pi_b_test_eval = pi_b.score(X[int(ndata * args.train_proportion):], Y[int(ndata * args.train_proportion):])
     pi_e_test_eval = pi_e.score(X[int(ndata * args.train_proportion):], Y[int(ndata * args.train_proportion):])

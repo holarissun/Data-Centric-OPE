@@ -45,20 +45,15 @@ df['WGT_DIFF'] = np.abs(df.WGT_KG_CALC - df.WGT_KG_DON_CALC)
 
 df2 = df[['SURVIVAL','ABO_MISMATCH', 'AGE', 'CREAT_TX', 'DIAL_TX', 'INR_TX', 'LIFE_SUP_TRR', 'TBILI_TX', 'WGT_DIFF']]
 df2 = (df2 - df2.mean()) / df2.std()
-# df2.to_csv('data_dir/liver-clean.csv', index_label=False)
+
 
 print('size = {}'.format(df2.index.size))
 
-
-# df2.to_csv('data_dir/liver-clean-datacope-df2.csv', index_label=False)
-# df.to_csv('data_dir/liver-clean-datacope-df.csv', index_label=False)
 from datetime import date
-from datetime import datetime 
+from datetime import datetime
 import numpy as np
 import pandas as pd
 
-# df = pd.read_csv('data_dir/liver-clean-datacope-df.csv')
-# df2 = pd.read_csv('data_dir/liver-clean-datacope-df2.csv')
 
 # training data 1: before 2002
 tr1_idx = np.where(df['TX_DATE'] <  np.datetime64(date.fromisoformat('2002-02-26')))[0]

@@ -1,25 +1,10 @@
 from sklearn.neural_network import MLPClassifier
 import pickle
-import xgboost as xgb
-from lightgbm import LGBMClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression, SGDClassifier, SGDRegressor, LinearRegression
-from sklearn.calibration import CalibratedClassifierCV
-from sklearn.metrics import roc_auc_score, mean_squared_error, r2_score
-import matplotlib.pyplot as plt
-from scipy.stats import pearsonr
-import math
-import seaborn as sns
-import random
-import os
 from tqdm import tqdm
 import numpy as np
-import pandas as pd
-import scipy
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader
 import torch.nn.functional as F
 from copy import deepcopy
 from random import sample
@@ -157,10 +142,8 @@ x_train, a_train, ra_train, mmse_train = train_dataset['x_train'], train_dataset
 x_test, a_test, ra_test, mmse_test = test_dataset['x_test'], test_dataset['a_test'], test_dataset['r_test'], test_dataset['minus_mse']
 train_x = np.concatenate((x_train, a_train.reshape(-1, 1)), axis=1)
 eval_x_train = np.concatenate((x_train, pi_e.predict(x_train).reshape(-1, 1)), axis=1)
-# test_x = np.concatenate((x_test, a_test.reshape(-1, 1)), axis=1)
 eval_x_test = np.concatenate((x_test, pi_e.predict(x_test).reshape(-1, 1)), axis=1)
 
-# test_y = ra_test
 
 if args.ra_mode == 'mse':
     ra_train = mmse_train

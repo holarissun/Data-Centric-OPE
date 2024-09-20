@@ -1,6 +1,8 @@
-"""A module for a mixture density network layer
+"""
+A module for a mixture density network layer
 For more info on MDNs, see _Mixture Desity Networks_ by Bishop, 1994.
 """
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
